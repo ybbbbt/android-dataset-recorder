@@ -232,7 +232,8 @@ public class MainActivity extends AppCompatActivity {
 
                 // Current timestamp of the event
                 // TODO: See if we can use image.getTimestamp()
-                long timestamp = new Date().getTime();
+//                long timestamp = new Date().getTime();
+                long timestamp = image.getTimestamp();
 
                 // Create folder name
                 String filename = "data_image.txt";

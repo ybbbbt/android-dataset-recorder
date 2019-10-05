@@ -66,11 +66,11 @@ public class IMUManager implements SensorEventListener {
 
         // Set event timestamp to current time in milliseconds
         // http://stackoverflow.com/a/9333605
-        event.timestamp = (new Date()).getTime() + (event.timestamp - System.nanoTime()) / 1000000L;
+//        event.timestamp = (new Date()).getTime() + (event.timestamp - System.nanoTime()) / 1000000L;
 
         // TODO: Figure out better way, for now just use the total time
         // https://code.google.com/p/android/issues/detail?id=56561
-        event.timestamp = new Date().getTime();
+//        event.timestamp = new Date().getTime();
 
         // Handle accelerometer reading
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
