@@ -91,8 +91,7 @@ public class IMUManager implements SensorEventListener {
 
                 // Create folder name
                 String filename = "data_imu.txt";
-                String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/dataset_recorder/" + MainActivity.folder_name + "/";
+                String path = MainActivity.path;
 
                 // Create export file
                 new File(path).mkdirs();

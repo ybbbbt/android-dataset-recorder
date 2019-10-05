@@ -57,13 +57,15 @@ public class MainActivity extends AppCompatActivity {
 
     public static CameraManager mCameraManager;
     public static IMUManager mImuManager;
-    public static GPSManager mGpsManager;
+//    public static GPSManager mGpsManager;
     private static SharedPreferences sharedPreferences;
 
 
     // Variables for the current state
     public static boolean is_recording;
     public static String folder_name;
+
+    public static String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         // Create the camera manager
         mCameraManager = new CameraManager(this, mTextureView, camera2View);
         mImuManager = new IMUManager(this);
-        mGpsManager = new GPSManager(this);
+//        mGpsManager = new GPSManager(this);
 
         // Set our shared preferences
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -114,8 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 // If we are not recording we should start it
                 if(!is_recording) {
                     // Set our folder name
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd-HH-mm-ss");
                     folder_name = dateFormat.format(new Date());
+                    path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                            + "/dataset_recorder/" + MainActivity.folder_name + "/";
 
                     // Also change the text on the button so that it turns into the stop button
                     Button button_record = (Button) findViewById(R.id.button_record);
@@ -158,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
         mImuManager.register();
 
         // Start background thread
-        mGpsManager.startBackgroundThread();
+//        mGpsManager.startBackgroundThread();
         // Register google services
-        mGpsManager.register();
+//        mGpsManager.register();
     }
 
     @Override
@@ -176,9 +180,9 @@ public class MainActivity extends AppCompatActivity {
         mImuManager.unregister();
 
         // Stop background thread
-        mGpsManager.stopBackgroundThread();
+//        mGpsManager.stopBackgroundThread();
         // Remove gps listener
-        mGpsManager.unregister();
+//        mGpsManager.unregister();
 
         // Call the super
         super.onPause();
@@ -237,8 +241,6 @@ public class MainActivity extends AppCompatActivity {
 
                 // Create folder name
                 String filename = "data_image.txt";
-                String path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/dataset_recorder/" + MainActivity.folder_name + "/";
 
                 // Create export file
                 new File(path).mkdirs();
@@ -267,12 +269,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // Create folder name
                 filename = timestamp + ".jpeg";
-                path = Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/dataset_recorder/" + MainActivity.folder_name + "/images/";
 
                 // Create export file
-                new File(path).mkdirs();
-                dest = new File(path + filename);
+                String image_path = path + "images/";
+                new File(image_path).mkdirs();
+                dest = new File(image_path + filename);
 
                 // Export the file to disk
                 try {
