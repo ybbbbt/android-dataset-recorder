@@ -1,47 +1,94 @@
-apply plugin: 'com.android.model.application'
+//apply plugin: 'com.android.model.application'
+//apply plugin: 'com.android.application'
+//
+//model {
+//    android {
+//        compileSdkVersion 23
+//        buildToolsVersion "23.0.2"
+//
+//        defaultConfig {
+//            applicationId "io.rpng.recorder"
+//            minSdkVersion.apiLevel 21
+//            targetSdkVersion.apiLevel 23
+//            versionCode 1
+//            versionName "1.0"
+//            multiDexEnabled true
+//        }
+//        buildTypes {
+//            release {
+//                minifyEnabled false
+//                proguardFiles.add(file('proguard-rules.pro'))
+//            }
+//        }
+//    }
+//}
+//
+//dependencies {
+//    // Include the libs dir (right now we don't have any java libs)
+//    //compile fileTree(dir: 'libs', include: ['*.jar'])
+//
+//    // Junit for testing (if we ever need it)
+//    //testCompile 'junit:junit:4.12'
+//
+//    // Include opencv libraries
+//    //compile project(':opencv_310')
+//
+//    // Include android deps
+////    compile 'com.android.support:appcompat-v7:23.4.0'
+////    compile 'com.android.support:design:23.4.0'
+//    compile "com.android.support:appcompat-v7:28.0.0"
+//    compile "com.android.support:design:28.0.0"
+//    compile 'com.android.support:support-v4:23.3.0'
+//    compile 'com.android.support:support-v13:23.3.0'
+//
+//    // Google play which allows us to access the location data
+//    compile 'com.google.android.gms:play-services:9.0.2'
+//
+//}
 
+apply plugin: 'com.android.application'
 
-model {
-    android {
-        compileSdkVersion 23
-        buildToolsVersion "23.0.2"
+android {
+    compileSdkVersion 23
+    defaultConfig {
+        applicationId "io.rpng.recorder"
 
-        defaultConfig {
-            applicationId "io.rpng.recorder"
-            minSdkVersion.apiLevel 21
-            targetSdkVersion.apiLevel 23
-            versionCode 1
-            versionName "1.0"
-            multiDexEnabled true
+        // Sceneform requires minSdkVersion >= 24.
+        minSdkVersion 21
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    // Sceneform libraries use language constructs from Java 8.
+    // Add these compile options if targeting minSdkVersion < 26.
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles.add(file('proguard-rules.pro'))
-            }
-        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
 dependencies {
-    // Include the libs dir (right now we don't have any java libs)
-    //compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    // Junit for testing (if we ever need it)
-    //testCompile 'junit:junit:4.12'
-
-    // Include opencv libraries
-    //compile project(':opencv_310')
-
-    // Include android deps
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.android.support:support-v13:23.3.0'
-
-    // Google play which allows us to access the location data
-    compile 'com.google.android.gms:play-services:9.0.2'
-
+//    implementation "com.google.ar.sceneform:core:1.9.0"
+//    implementation "com.android.support:appcompat-v7:28.0.0"
+//    implementation "com.android.support:design:28.0.0"
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+    implementation 'com.android.support:design:23.4.0'
+    implementation 'com.android.support:support-v4:23.3.0'
+    implementation 'com.android.support:support-v13:23.3.0'
+// Google play which allows us to access the location data
+    implementation 'com.google.android.gms:play-services:9.0.2'
 }
 
 //  Unnecessary dependency management:
